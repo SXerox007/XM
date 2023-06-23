@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package company;
+
+option go_package = "github.com/SXerox007/XM/protos/company";
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+enum CompanyType {
+CORPORATIONS = 0;
+NONPROFIT = 1;
+COOPERATIVE = 2;
+SOLE_PROPRIETORSHIP = 3;
+}
+
+message Company {
+string id = 1;
+string name = 2;
+string description = 3;
+int32 employees = 4;
+bool registered = 5;
+CompanyType type = 6;
+google.protobuf.Timestamp created_at = 7;
+google.protobuf.Timestamp updated_at = 8;
+}
+
+message CreateCompanyRequest {
+string name = 1;
+string description = 2;
+int32 employees = 3;
+bool registered = 4;
+CompanyType type = 5;
+}
+
+message UpdateCompanyRequest {
+string id = 1;
+string name = 2;
+string description = 3;
+int32 employees = 4;
+bool registered = 5;
+CompanyType type = 6;
+}
+
+message DeleteCompanyRequest {
+string id = 1;
+}
+
+message GetCompanyRequest {
+string id = 1;
+}
+
+service CompanyService {
+rpc CreateCompany(CreateCompanyRequest) returns (Company) {
+     option (google.api.http) = {
+            post: "/v1/company"
+            body: "*"
+		};
+}
+rpc UpdateCompany(UpdateCompanyRequest) returns (Company) {
+    option (google.api.http) = {
+            patch: "/v1/company"
+            body: "*"
+		};
+}
+rpc DeleteCompany(DeleteCompanyRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+            delete: "/v1/company"
+		};
+}
+rpc GetCompany(GetCompanyRequest) returns (Company) {
+     option (google.api.http) = {
+            get: "/v1/order"
+		};
+}
+}
