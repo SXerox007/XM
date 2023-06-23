@@ -7,6 +7,9 @@ import (
 	"os"
 	"os/signal"
 
+	db "github.com/SXerox007/XM/base/postgres"
+
+	"github.com/SXerox007/XM/base/environment"
 	"github.com/SXerox007/XM/base/server"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -14,13 +17,20 @@ import (
 	cp "github.com/SXerox007/XM/api/services/company"
 )
 
+func init() {
+	pg := db.InitPG()
+	defer pg.Close()
+}
+
 func main() {
-	ServerSetup()
+	env := environment.GetEnv()
+	port := environment.GetPort()
+	ServerSetup(env, port)
 }
 
 // brain setup
-func ServerSetup() {
-	listner, err := net.Listen("tcp", ":50051")
+func ServerSetup(env, port string) {
+	listner, err := net.Listen(env, port)
 	if err != nil {
 		log.Println("Error in server start:", err)
 		return
@@ -33,7 +43,7 @@ func ServerSetup() {
 	setupServices(srv)
 
 	go func() {
-		fmt.Println("Server start on Port:50051")
+		fmt.Println("Server start on", env+port)
 		if err := srv.Serve(listner); err != nil {
 			log.Println("Error in Serve:", err)
 			return
