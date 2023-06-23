@@ -6,6 +6,6 @@ description TEXT,
 employees INT NOT NULL,
 registered BOOLEAN NOT NULL,
 type VARCHAR(20) NOT NULL
-v text DEFAULT null,
+v text DEFAULT v1,
 uts timestamp default current_timestamp
 );
