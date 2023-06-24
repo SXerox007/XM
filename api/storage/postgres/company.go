@@ -1,6 +1,10 @@
 package postgres
 
-import db "github.com/SXerox007/XM/base/postgres"
+import (
+	"errors"
+
+	db "github.com/SXerox007/XM/base/postgres"
+)
 
 type Company struct {
 	TableName   struct{} `sql:"companies" json:"-"`
@@ -18,7 +22,25 @@ func CreateCompanyRow(data Company) (Company, error) {
 	return data, err
 }
 
+// get details
+func GetCompanyDetails(id string) (data Company, err error) {
+	err = db.PG.Model(&Company{}).Where("id = ?", id).Order("uts desc").Limit(1).Select(&data)
+	return
+}
+
 // update company details
 func UpdateCompanyDetails(data Company) (Company, error) {
-	return data, nil
+	if compData, err := GetCompanyDetails(data.Id); compData.Id != "" && err == nil {
+		// do update
+		_, err := db.PG.Model(&Company{}).Set("name = ?", data.Name).Set("description = ?", data.Description).Set("employees = ?", data.Employees).Set("registered = ?", data.Registered).Set("type = ?", data.Type).
+			Where("id = ?", data.Id).Update()
+		return data, err
+	}
+	return data, errors.New("invalid data")
+}
+
+// remove company details
+func RemoveCompanyDetails(id string) error {
+	_, err := db.PG.Model(&Company{}).Where("id = ?", id).Delete()
+	return err
 }
