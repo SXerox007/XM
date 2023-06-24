@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	authpoint = flag.String("auth_end_points", "localhost:50051", "expose xm end point ")
+	authpoint = flag.String("auth_end_points", "localhost:5051", "expose xm end point ")
 )
 
 func ExposePoint(address string, opts ...runtime.ServeMuxOption) error {

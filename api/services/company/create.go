@@ -14,6 +14,7 @@ import (
 )
 
 func (s *Svc) CreateCompany(ctx context.Context, req *company.CreateCompanyRequest) (*company.Company, error) {
+	log.Println("Here at CreateCompany")
 	// validate the request
 	if err := validate(req); err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())

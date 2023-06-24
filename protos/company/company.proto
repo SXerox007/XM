@@ -71,7 +71,7 @@ rpc DeleteCompany(DeleteCompanyRequest) returns (google.protobuf.Empty) {
 }
 rpc GetCompany(GetCompanyRequest) returns (Company) {
      option (google.api.http) = {
-            get: "/v1/order"
+            get: "/v1/company"
 		};
 }
 }

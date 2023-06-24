@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+    xm-api:
+        build:
+            context: .
+            dockerfile: Dockerfile.api
+        ports:
+            - "50051:50051"
+        env_file:
+            - deployment/local.env 
+        depends_on:
+            - xm-postgres  
+        container_name: xm-api 
+        networks:
+            - network1
+
+    xm-rest:
+        build:
+            context: .
+            dockerfile: Dockerfile.rest
+        ports:
+            - "5051:5051"
+        env_file:
+            - deployment/local.env 
+        depends_on:
+            - xm-api  
+        container_name: xm-rest 
+        networks:
+            - network1        
+
+    xm-postgres:
+        image: postgres:9.6
+        volumes:
+            - postgres_data1:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgespswd
+            - POSTGRES_DB=xm
+        container_name: xm-postgres         
+        ports:
+            - 5433:5432  
+        networks:
+            - network1                
+
+networks:
+    network1:
+        driver: bridge        
+
+volumes:
+    postgres_data1:
