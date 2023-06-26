@@ -17,7 +17,7 @@ var secretKey = []byte("/7fjzEeQOd762BnRCDSL3QDCzhlqq4gSAnlnAdYSPRY=")
 // Generate the Access token
 func GenerateToken(username string, uuid string) (string, error) {
 	// Create the token
-	token := jwt.New(jwt.SigningMethodRS512)
+	token := jwt.New(jwt.SigningMethodHS256)
 	claims := make(jwt.MapClaims)
 	claims["username"] = username
 	claims[EXP] = time.Now().Add(time.Minute * 1).Unix()
