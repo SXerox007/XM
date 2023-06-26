@@ -53,10 +53,10 @@ func ExposePoint(address string, middleware func(http.Handler) http.Handler, opt
 	}
 
 	// Apply the authentication middleware
-	handler := middleware(mux)
+	//handler := middleware(mux)
 
 	grpcMux := http.NewServeMux()
-	grpcMux.Handle("/", handler)
+	grpcMux.Handle("/", mux)
 
 	log.Println("Starting Endpoint Exposed Server:", address)
 	return http.ListenAndServe(address, grpcMux)
