@@ -12,6 +12,34 @@
   ],
   "paths": {
     "/v1/company": {
+      "get": {
+        "operationId": "CompanyService_GetCompany",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/companyCompany"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CompanyService"
+        ]
+      },
       "delete": {
         "operationId": "CompanyService_DeleteCompany",
         "responses": {
@@ -94,36 +122,6 @@
             "schema": {
               "$ref": "#/definitions/companyUpdateCompanyRequest"
             }
-          }
-        ],
-        "tags": [
-          "CompanyService"
-        ]
-      }
-    },
-    "/v1/order": {
-      "get": {
-        "operationId": "CompanyService_GetCompany",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/companyCompany"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/runtimeError"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [

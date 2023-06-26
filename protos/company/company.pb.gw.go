@@ -402,7 +402,7 @@ var (
 
 	pattern_CompanyService_DeleteCompany_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "company"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_CompanyService_GetCompany_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "order"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_CompanyService_GetCompany_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "company"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

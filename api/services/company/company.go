@@ -8,7 +8,6 @@ import (
 type Svc struct {
 	company.UnimplementedCompanyServiceServer
 	adminOrg string
-	//TODO: add db
 }
 
 // RegisterService with grpc server.
